@@ -8,7 +8,7 @@ The program will takes all of the images, **jpg and png only** into the root dir
 
 ```
 $ git clone https://github.com/nathan-out/instagram-feed-creator.git
-$ cd instagram-feed-generator
+$ cd instagram-feed-creator
 $ mkdir sorted # if this directory is not already here
 $ python3 main.py make_feed
 ```
