@@ -10,4 +10,10 @@ The program will takes all of the images, **jpg and png only** into the root dir
 
 ## Need more information ?
 
-I wrote an article which detailled how the program works here (french) : [Créer un dégrade d'image : un vrai défi](https://nathan-out.github.io/posts/creer-un-degrade-dimage-un-vrai-defi/)
+I wrote an article which detailled how the program works here (french) : [Créer un dégrade d'image : un vrai défi](https://nathan-out.github.io/posts/creer-un-degrade-dimage-un-vrai-defi/).
+
+## Output
+
+There is en example of result :
+
+![]()
