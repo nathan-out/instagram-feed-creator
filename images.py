@@ -60,11 +60,11 @@ def most_dominant_color(file_name):
 	# Find and display most dominant colors
 	cluster = KMeans(n_clusters=5).fit(reshape)
 	#print(cluster.cluster_centers_)
-	visualize = visualize_colors(cluster, cluster.cluster_centers_)
+	#visualize = visualize_colors(cluster, cluster.cluster_centers_)
 	r = get_data(cluster, cluster.cluster_centers_)
-	visualize = cv2.cvtColor(visualize, cv2.COLOR_RGB2BGR)
-	cv2.imshow('visualize', visualize)
-	cv2.waitKey(10000)
+	#visualize = cv2.cvtColor(visualize, cv2.COLOR_RGB2BGR)
+	#cv2.imshow('visualize', visualize)
+	#cv2.waitKey(10000)
 	return r
 
 """
