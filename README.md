@@ -2,7 +2,7 @@
 A program which sort your images by color in order to create a gradient.
 
 
-## How to use it
+## How to use it
 
 The program will takes all of the images, **jpg and png only**, sort them and copy the files into the `sorted directory`.
 
