@@ -49,22 +49,34 @@ def get_data(cluster, centroids):
     return ret[::-1]
 
 """
+Redimensionne l'image image en gardant le ratio à une largeur width
+"""
+def resize_image(image, width):
+    r = width / float(image.shape[1])
+    dim = (width, int(image.shape[0] * r))
+    resized = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
+    return resized
+
+"""
 renvoie les 5 couleurs dominantes dans l'image file_name
 """
-def most_dominant_color(file_name):
+def most_dominant_color(file_name, n_clusters=5, max_iter=5, max_width=2000):
 	# Load image and convert to a list of pixels
+    # c'est ici qu'on redimensionne au besoin l'image avant le clustering
 	image = cv2.imread(file_name)
+	if image.shape[0] > max_width:
+		image = resize_image(cv2.imread(file_name), max_width)
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 	reshape = image.reshape((image.shape[0] * image.shape[1], 3))	
 
 	# Find and display most dominant colors
-	cluster = KMeans(n_clusters=5).fit(reshape)
-	#print(cluster.cluster_centers_)
-	#visualize = visualize_colors(cluster, cluster.cluster_centers_)
+	cluster = KMeans(n_clusters=n_clusters, max_iter=max_iter).fit(reshape)
 	r = get_data(cluster, cluster.cluster_centers_)
-	#visualize = cv2.cvtColor(visualize, cv2.COLOR_RGB2BGR)
-	#cv2.imshow('visualize', visualize)
-	#cv2.waitKey(10000)
+	#print(cluster.cluster_centers_)
+	"""visualize = visualize_colors(cluster, cluster.cluster_centers_)
+	visualize = cv2.cvtColor(visualize, cv2.COLOR_RGB2BGR)
+	cv2.imshow('visualize', visualize)
+	cv2.waitKey(10000)"""
 	return r
 
 """

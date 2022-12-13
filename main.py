@@ -10,20 +10,21 @@ def help():
 Renvoie un dictionnaire avec comme clef le nom de chaque fichier png ou jpg dans le dossier courant et comme valeur une liste 2D avec les 5 couleurs dominantes dans l'image et pour chacune d'entre elle son pourcentage :
 de la forme : {'filename.png': [ [pourcentage, R, G, B], [...] ], 'filename2.png': [ [pourcentage, R, G, B], [...] ]}
 """
-def get_files_with_dominant_colors():
+def get_files_with_dominant_colors(base_dir='images/'):
 	images_and_dominant_colors = {}
 	"""
 	de la forme : {'filename.png': [ [pourcentage, R, G, B], [...] ]}
 	"""
-	for e in sorted(os.listdir()):
-		if os.path.isfile(e):
-			if not os.path.exists(e):
-				raise ValueError('Error : file '+e+' does not exist. Porgramm stopped.')
+	for e in sorted(os.listdir(base_dir)):
+		file = base_dir+e
+		if os.path.isfile(file):
+			if not os.path.exists(file):
+				raise ValueError('Error : file '+file+' does not exist. Porgramm stopped.')
 			if len(e.split('.'))>2:
 				raise ValueError('Error : file "'+e+'" have problem in its name. Filename MUST NOT have more than one dot (.) in its name. Programm stopped.')
 			if e.split('.')[1] == 'png' or e.split('.')[1] == 'jpg':
 				print('\tprocessing '+e+' please wait this could be long...')
-				images_and_dominant_colors[e] = i.most_dominant_color(e)
+				images_and_dominant_colors[e] = i.most_dominant_color(file)
 				print(e+' \tprocessing complete.')
 			else:
 				print('\twarning file '+e+' is not jpg or png. This file have been ignored by the program.')
@@ -61,21 +62,22 @@ def calculate_distance(t1, t2):
 	return int(d)
 
 """
-Copy files from the current directory to 'sorted' directory in the order of list_of_files.
+Copy files from the directory 'images' to 'sorted' directory in the order of list_of_files.
 Names of files will be saved 'image_name.png' saved as '00001-images_name.png'.
 """
-def save_ordered_files(list_of_files):
+def save_ordered_files(list_of_files, base_dir='images/'):
 	i = 0
 	file_name = ''
 	for file in list_of_files:
 		file_name = str(i).zfill(5)+'-'+file
-		shutil.copy(file, 'sorted/'+file_name)
+		shutil.copy(base_dir+file, 'sorted/'+file_name)
 		#print(file_name)
 		i+=1
 
 def make_feed():
 	print("Processing all of images...")
 	images_and_dominant_colors = get_files_with_dominant_colors()
+	#print(images_and_dominant_colors)
 	print("Processing complete")
 	print("Sorting files this could be long too...")
 	list_of_files = sort_image.get_sorted_images(i.get_average_most_dominant_color(images_and_dominant_colors))
